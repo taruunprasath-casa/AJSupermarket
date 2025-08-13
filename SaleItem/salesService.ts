@@ -26,6 +26,7 @@ export class SalesService implements ISalesService {
       billItems.push({
         product,
         qty: saleItem.quantity,
+        offerId: "N/A",
         netPrice,
       });
 
