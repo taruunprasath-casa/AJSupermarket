@@ -7,9 +7,9 @@ export class BillGenerator {
 
   static printBill(bill: Bill) {
     console.log("== Bill ==");
-    bill.items.forEach(item => {
+    bill.items.forEach((item) => {
       console.log(
-        `${item.product.id} - ${item.product.name} - ${item.qty} - ${item.product.pricePerUnit} - ${item.netPrice}`
+        `${item.product.id} - ${item.product.name} - ${item.qty} - ${item.offerId} - ${item.product.pricePerUnit} - ${item.netPrice}`
       );
     });
     console.log("== Total ==");
