@@ -31,7 +31,7 @@ export class SalesService implements ISalesService {
       });
 
       this.inventory.updateQuantity(
-        product.id,
+        product,
         product.quantity - saleItem.quantity
       );
     }

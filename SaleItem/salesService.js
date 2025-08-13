@@ -20,7 +20,7 @@ export class SalesService {
                 offerId: "N/A",
                 netPrice,
             });
-            this.inventory.updateQuantity(product.id, product.quantity - saleItem.quantity);
+            this.inventory.updateQuantity(product, product.quantity - saleItem.quantity);
         }
         return new Bill(billItems, total);
     }

@@ -6,8 +6,7 @@ export class InventoryManager {
     getProduct(id) {
         return this.products.get(id);
     }
-    updateQuantity(id, qty) {
-        const product = this.products.get(id);
+    updateQuantity(product, qty) {
         if (product) {
             product.quantity = qty;
         }
