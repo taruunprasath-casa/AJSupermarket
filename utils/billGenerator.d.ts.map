@@ -1,0 +1,1 @@
+{"version":3,"file":"billGenerator.d.ts","sourceRoot":"","sources":["billGenerator.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,IAAI,EAAE,MAAM,mBAAmB,CAAC;AAE9C,qBAAa,aAAa;IACxB,MAAM,CAAC,oBAAoB;IAI3B,MAAM,CAAC,SAAS,CAAC,IAAI,EAAE,IAAI;IAY3B,MAAM,CAAC,UAAU,CAAC,WAAW,EAAE,MAAM,EAAE,GAAG,EAAE,MAAM;CAGnD"}
