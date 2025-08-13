@@ -5,6 +5,7 @@ export class Bill {
     public items: {
       product: Product;
       qty: number;
+      offerId: string;
       netPrice: number;
     }[],
     public total: number
