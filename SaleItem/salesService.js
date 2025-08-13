@@ -17,6 +17,7 @@ export class SalesService {
             billItems.push({
                 product,
                 qty: saleItem.quantity,
+                offerId: "N/A",
                 netPrice,
             });
             this.inventory.updateQuantity(product.id, product.quantity - saleItem.quantity);
