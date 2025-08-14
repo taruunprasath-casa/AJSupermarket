@@ -1,7 +1,7 @@
 import type { IInventoryManager } from "../Inventory/inventoryManger.js";
 import type { ISalesService } from "../SaleItem/salesService.js";
 export interface ICommand<T> {
-    process(input: string, context: T): void;
+    process(input: string, command: T): void;
 }
 declare class Command {
     inventory: IInventoryManager;

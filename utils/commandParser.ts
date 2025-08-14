@@ -5,7 +5,7 @@ import type { ISalesService } from "../SaleItem/salesService.js";
 import { ConsoleBillGenerator } from "./consoleBillGenerator.js";
 
 export interface ICommand<T> {
-  process(input: string, context: T): void;
+  process(input: string, command: T): void;
 }
 
 enum Symbols {
