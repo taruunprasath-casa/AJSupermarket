@@ -2,7 +2,7 @@ import type { IInventoryManager } from "../Inventory/inventoryManger.js";
 import { Product } from "../models/Product.js";
 import { SaleItem } from "../models/SaleItem.js";
 import type { ISalesService } from "../SaleItem/salesService.js";
-import { ConsoleBillGenerator } from "./billGenerator.js";
+import { ConsoleBillGenerator } from "./consoleBillGenerator.js";
 
 enum Symbols {
   ARROW = "=>",

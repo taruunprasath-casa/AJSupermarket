@@ -1,6 +1,6 @@
 import { Product } from "../models/Product.js";
 import { SaleItem } from "../models/SaleItem.js";
-import { BillGenerator } from "./billGenerator.js";
+import { ConsoleBillGenerator } from "./consoleBillGenerator.js";
 var Symbols;
 (function (Symbols) {
     Symbols["ARROW"] = "=>";
@@ -32,7 +32,7 @@ class InventoryCommand {
             }
             const [id, name, qty, price] = inventoryData.split(Symbols.PIPE);
             inventory.addProduct(new Product(String(id), String(name), Number(qty), Number(price)));
-            BillGenerator.printInventoryUpdate();
+            ConsoleBillGenerator.printInventoryUpdate();
         }
     }
 }
@@ -48,7 +48,7 @@ class SalesCommand {
                 return new SaleItem(String(id), Number(qty));
             });
             const bill = sales.processSale(items);
-            BillGenerator.printBill(bill);
+            ConsoleBillGenerator.printBill(bill);
         }
     }
 }
@@ -61,7 +61,7 @@ class StockCommand {
             }
             const product = inventory.getProduct(String(id));
             if (product) {
-                BillGenerator.printStock(product.name, product.quantity);
+                ConsoleBillGenerator.printStock(product.name, product.quantity);
             }
             else {
                 throw new Error(`Product with ID ${id} not found.`);
