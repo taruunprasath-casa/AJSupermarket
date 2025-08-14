@@ -1,4 +1,4 @@
-export class BillGenerator {
+export class ConsoleBillGenerator {
     static printInventoryUpdate() {
         console.log("Inventory Updated.");
     }
@@ -15,4 +15,4 @@ export class BillGenerator {
         console.log(`${productName} - ${qty}`);
     }
 }
-//# sourceMappingURL=billGenerator.js.map
+//# sourceMappingURL=consoleBillGenerator.js.map
