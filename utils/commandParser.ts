@@ -4,6 +4,10 @@ import { SaleItem } from "../models/SaleItem.js";
 import type { ISalesService } from "../SaleItem/salesService.js";
 import { ConsoleBillGenerator } from "./consoleBillGenerator.js";
 
+export interface ICommand<T> {
+  process(input: string, context: T): void;
+}
+
 enum Symbols {
   ARROW = "=>",
   PIPE = "|",
@@ -27,13 +31,12 @@ class Command {
   }
 }
 
-class InventoryCommand {
+class InventoryCommand implements ICommand<IInventoryManager> {
   process(input: string, inventory: IInventoryManager) {
     if (input.startsWith("INVENTORY")) {
       const inventoryData = input.split(Symbols.ARROW)[1];
-      if (!inventoryData) {
-        throw new Error("Invalid INVENTORY input format.");
-      }
+      if (!inventoryData) throw new Error("Invalid INVENTORY input format.");
+
       const [id, name, qty, price] = inventoryData.split(Symbols.PIPE);
       inventory.addProduct(
         new Product(String(id), String(name), Number(qty), Number(price))
@@ -43,13 +46,12 @@ class InventoryCommand {
   }
 }
 
-class SalesCommand {
+class SalesCommand implements ICommand<ISalesService> {
   process(input: string, sales: ISalesService) {
     if (input.startsWith("SALE")) {
       const saleData = input.split(Symbols.ARROW)[1];
-      if (!saleData) {
-        throw new Error("Invalid SALE input format.");
-      }
+      if (!saleData) throw new Error("Invalid SALE input format.");
+
       const items = saleData.split(Symbols.SEMICOLON).map((p) => {
         const [id, qty] = p.split(Symbols.PIPE);
         return new SaleItem(String(id), Number(qty));
@@ -60,13 +62,12 @@ class SalesCommand {
   }
 }
 
-class StockCommand {
+class StockCommand implements ICommand<IInventoryManager> {
   process(input: string, inventory: IInventoryManager) {
     if (input.startsWith("STOCK")) {
       const id = input.split(Symbols.ARROW)[1];
-      if (!id) {
-        throw new Error("Invalid STOCK input format.");
-      }
+      if (!id) throw new Error("Invalid STOCK input format.");
+
       const product = inventory.getProduct(String(id));
       if (product) {
         ConsoleBillGenerator.printStock(product.name, product.quantity);
@@ -76,4 +77,5 @@ class StockCommand {
     }
   }
 }
+
 export { Command, InventoryCommand, SalesCommand, StockCommand };
