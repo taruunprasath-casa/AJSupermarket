@@ -1,10 +1,10 @@
 import * as readline from "readline";
 import { InventoryManager } from "./Inventory/inventoryManger.js";
 import { SalesService } from "./SaleItem/salesService.js";
-import { CommandParser } from "./utils/commandParser.js";
+import { Command } from "./utils/commandParser.js";
 const inventory = new InventoryManager();
 const sales = new SalesService(inventory);
-const parser = new CommandParser(inventory, sales);
+const parser = new Command(inventory, sales);
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
