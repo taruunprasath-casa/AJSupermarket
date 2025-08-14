@@ -2,7 +2,7 @@ import type { IInventoryManager } from "../Inventory/inventoryManger.js";
 import { Product } from "../models/Product.js";
 import { SaleItem } from "../models/SaleItem.js";
 import type { ISalesService } from "../SaleItem/salesService.js";
-import { BillGenerator } from "./billGenerator.js";
+import { ConsoleBillGenerator } from "./billGenerator.js";
 
 enum Symbols {
   ARROW = "=>",
@@ -38,7 +38,7 @@ class InventoryCommand {
       inventory.addProduct(
         new Product(String(id), String(name), Number(qty), Number(price))
       );
-      BillGenerator.printInventoryUpdate();
+      ConsoleBillGenerator.printInventoryUpdate();
     }
   }
 }
@@ -55,7 +55,7 @@ class SalesCommand {
         return new SaleItem(String(id), Number(qty));
       });
       const bill = sales.processSale(items);
-      BillGenerator.printBill(bill);
+      ConsoleBillGenerator.printBill(bill);
     }
   }
 }
@@ -69,7 +69,7 @@ class StockCommand {
       }
       const product = inventory.getProduct(String(id));
       if (product) {
-        BillGenerator.printStock(product.name, product.quantity);
+        ConsoleBillGenerator.printStock(product.name, product.quantity);
       } else {
         throw new Error(`Product with ID ${id} not found.`);
       }
