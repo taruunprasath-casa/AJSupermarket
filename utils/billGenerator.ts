@@ -1,6 +1,6 @@
 import type { Bill } from "../models/Bill.js";
 
-export class BillGenerator {
+export class ConsoleBillGenerator {
   static printInventoryUpdate() {
     console.log("Inventory Updated.");
   }
