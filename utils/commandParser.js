@@ -31,7 +31,7 @@ class InventoryCommand {
                 throw new Error("Invalid INVENTORY input format.");
             const [id, name, qty, price] = inventoryData.split(Symbols.PIPE);
             inventory.addProduct(new Product(String(id), String(name), Number(qty), Number(price)));
-            ConsoleBillGenerator.printInventoryUpdate();
+            inventory.printInventoryUpdate();
         }
     }
 }
@@ -58,7 +58,7 @@ class StockCommand {
                 throw new Error("Invalid STOCK input format.");
             const product = inventory.getProduct(String(id));
             if (product) {
-                ConsoleBillGenerator.printStock(product.name, product.quantity);
+                inventory.printStock(product.name, product.quantity);
             }
             else {
                 throw new Error(`Product with ID ${id} not found.`);

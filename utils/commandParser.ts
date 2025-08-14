@@ -41,7 +41,7 @@ class InventoryCommand implements ICommand<IInventoryManager> {
       inventory.addProduct(
         new Product(String(id), String(name), Number(qty), Number(price))
       );
-      ConsoleBillGenerator.printInventoryUpdate();
+      inventory.printInventoryUpdate();
     }
   }
 }
@@ -70,7 +70,7 @@ class StockCommand implements ICommand<IInventoryManager> {
 
       const product = inventory.getProduct(String(id));
       if (product) {
-        ConsoleBillGenerator.printStock(product.name, product.quantity);
+        inventory.printStock(product.name, product.quantity);
       } else {
         throw new Error(`Product with ID ${id} not found.`);
       }

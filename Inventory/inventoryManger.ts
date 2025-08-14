@@ -4,6 +4,8 @@ export interface IInventoryManager {
   addProduct(product: Product): void;
   getProduct(id: string): Product | undefined;
   updateQuantity(product: Product, qty: number): void;
+  printInventoryUpdate(): void;
+  printStock(productName: string, qty: number): void;
 }
 
 export class InventoryManager implements IInventoryManager {
@@ -21,5 +23,12 @@ export class InventoryManager implements IInventoryManager {
     if (product) {
       product.quantity = qty;
     }
+  }
+  printInventoryUpdate() {
+    console.log("Inventory Updated.");
+  }
+
+  printStock(productName: string, qty: number) {
+    console.log(`${productName} - ${qty}`);
   }
 }

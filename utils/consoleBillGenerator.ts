@@ -1,9 +1,6 @@
 import type { Bill } from "../models/Bill.js";
 
 export class ConsoleBillGenerator {
-  static printInventoryUpdate() {
-    console.log("Inventory Updated.");
-  }
 
   static printBill(bill: Bill) {
     console.log("== Bill ==");
@@ -17,7 +14,4 @@ export class ConsoleBillGenerator {
     console.log("========");
   }
 
-  static printStock(productName: string, qty: number) {
-    console.log(`${productName} - ${qty}`);
-  }
 }

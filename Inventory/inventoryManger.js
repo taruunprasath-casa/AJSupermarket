@@ -11,5 +11,11 @@ export class InventoryManager {
             product.quantity = qty;
         }
     }
+    printInventoryUpdate() {
+        console.log("Inventory Updated.");
+    }
+    printStock(productName, qty) {
+        console.log(`${productName} - ${qty}`);
+    }
 }
 //# sourceMappingURL=inventoryManger.js.map

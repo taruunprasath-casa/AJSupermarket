@@ -1,7 +1,4 @@
 export class ConsoleBillGenerator {
-    static printInventoryUpdate() {
-        console.log("Inventory Updated.");
-    }
     static printBill(bill) {
         console.log("== Bill ==");
         bill.items.forEach((item) => {
@@ -10,9 +7,6 @@ export class ConsoleBillGenerator {
         console.log("== Total ==");
         console.log(bill.total);
         console.log("========");
-    }
-    static printStock(productName, qty) {
-        console.log(`${productName} - ${qty}`);
     }
 }
 //# sourceMappingURL=consoleBillGenerator.js.map
