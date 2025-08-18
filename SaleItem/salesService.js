@@ -17,7 +17,7 @@ export class SalesService {
             const quantity = item.quantity;
             let discountApplied = "N/A";
             let netPrice = unitPrice * quantity;
-            const bestOffer = this.offerService.getBestOffer(item.productId, quantity, unitPrice);
+            const bestOffer = this.offerService.getOffer(item.productId, quantity, unitPrice);
             if (bestOffer) {
                 const discountAmount = netPrice * (bestOffer.discountPercentage / 100);
                 netPrice -= discountAmount;

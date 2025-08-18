@@ -5,7 +5,7 @@ export class OfferProvider {
         console.log("Offer Added.");
         return offer.code;
     }
-    getBestOffer(productId, quantity, price) {
+    getOffer(productId, quantity, price) {
         const productOffers = this?.offers.filter((o) => o.productId === productId);
         if (productOffers.length === 0)
             return null;

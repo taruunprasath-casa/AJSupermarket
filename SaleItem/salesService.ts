@@ -22,7 +22,7 @@ export class SalesService {
       let discountApplied = "N/A";
       let netPrice = unitPrice * quantity;
 
-      const bestOffer = this.offerService.getBestOffer(
+      const bestOffer = this.offerService.getOffer(
         item.productId,
         quantity,
         unitPrice

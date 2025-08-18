@@ -3,7 +3,7 @@ import type { SaleItem } from "../models/SaleItem.js";
 
 export interface IOfferProvider {
   createOffer(offer: Offer): string;
-  getBestOffer(
+  getOffer(
     productId: SaleItem["productId"],
     quantity: number,
     price: number
@@ -19,7 +19,7 @@ export class OfferProvider implements IOfferProvider {
     return offer.code;
   }
 
-  getBestOffer(
+  getOffer(
     productId: SaleItem["productId"],
     quantity: number,
     price: number
