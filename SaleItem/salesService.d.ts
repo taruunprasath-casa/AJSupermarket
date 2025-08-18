@@ -1,12 +1,11 @@
 import type { IInventoryManager } from "../Inventory/inventoryManger.js";
 import { Bill } from "../models/Bill.js";
 import type { SaleItem } from "../models/SaleItem.js";
-export interface ISalesService {
-    processSale(items: SaleItem[]): Bill;
-}
-export declare class SalesService implements ISalesService {
+import type { IOfferProvider } from "../Offer/OfferProvider.js";
+export declare class SalesService {
     private inventory;
-    constructor(inventory: IInventoryManager);
+    private offerService;
+    constructor(inventory: IInventoryManager, offerService: IOfferProvider);
     processSale(items: SaleItem[]): Bill;
 }
 //# sourceMappingURL=salesService.d.ts.map

@@ -1,39 +1,47 @@
 import type { IInventoryManager } from "../Inventory/inventoryManger.js";
 import { Bill } from "../models/Bill.js";
 import type { SaleItem } from "../models/SaleItem.js";
+import type { IOfferProvider } from "../Offer/OfferProvider.js";
 
-export interface ISalesService {
-  processSale(items: SaleItem[]): Bill;
-}
-
-export class SalesService implements ISalesService {
-  constructor(private inventory: IInventoryManager) {}
+export class SalesService {
+  constructor(
+    private inventory: IInventoryManager,
+    private offerService: IOfferProvider
+  ) {}
 
   processSale(items: SaleItem[]): Bill {
     let total = 0;
-    const billItems = [];
+    const billItems: any[] = [];
 
-    for (const saleItem of items) {
-      const product = this.inventory.getProduct(saleItem.productId);
-      if (!product || product.quantity < saleItem.quantity) {
-        throw new Error(
-          `Insufficient stock for Product ID ${saleItem.productId}`
-        );
+    for (const item of items) {
+      const product = this.inventory.getProduct(item.productId);
+      if (!product) throw new Error("Product not found");
+
+      const unitPrice = product.pricePerUnit;
+      const quantity = item.quantity;
+      let discountApplied = "N/A";
+      let netPrice = unitPrice * quantity;
+
+      const bestOffer = this.offerService.getBestOffer(
+        item.productId,
+        quantity,
+        unitPrice
+      );
+      if (bestOffer) {
+        const discountAmount = netPrice * (bestOffer.discountPercentage / 100);
+        netPrice -= discountAmount;
+        discountApplied = bestOffer.id;
       }
 
-      const netPrice = product.pricePerUnit * saleItem.quantity;
       total += netPrice;
       billItems.push({
         product,
-        qty: saleItem.quantity,
-        offerId: "N/A",
+        qty: quantity,
+        offerId: discountApplied,
         netPrice,
       });
 
-      this.inventory.updateQuantity(
-        product,
-        product.quantity - saleItem.quantity
-      );
+      this.inventory.updateQuantity(product, quantity);
     }
 
     return new Bill(billItems, total);

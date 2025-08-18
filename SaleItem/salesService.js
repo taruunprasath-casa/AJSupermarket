@@ -1,26 +1,36 @@
 import { Bill } from "../models/Bill.js";
 export class SalesService {
     inventory;
-    constructor(inventory) {
+    offerService;
+    constructor(inventory, offerService) {
         this.inventory = inventory;
+        this.offerService = offerService;
     }
     processSale(items) {
         let total = 0;
         const billItems = [];
-        for (const saleItem of items) {
-            const product = this.inventory.getProduct(saleItem.productId);
-            if (!product || product.quantity < saleItem.quantity) {
-                throw new Error(`Insufficient stock for Product ID ${saleItem.productId}`);
+        for (const item of items) {
+            const product = this.inventory.getProduct(item.productId);
+            if (!product)
+                throw new Error("Product not found");
+            const unitPrice = product.pricePerUnit;
+            const quantity = item.quantity;
+            let discountApplied = "N/A";
+            let netPrice = unitPrice * quantity;
+            const bestOffer = this.offerService.getBestOffer(item.productId, quantity, unitPrice);
+            if (bestOffer) {
+                const discountAmount = netPrice * (bestOffer.discountPercentage / 100);
+                netPrice -= discountAmount;
+                discountApplied = bestOffer.id;
             }
-            const netPrice = product.pricePerUnit * saleItem.quantity;
             total += netPrice;
             billItems.push({
                 product,
-                qty: saleItem.quantity,
-                offerId: "N/A",
+                qty: quantity,
+                offerId: discountApplied,
                 netPrice,
             });
-            this.inventory.updateQuantity(product, product.quantity - saleItem.quantity);
+            this.inventory.updateQuantity(product, quantity);
         }
         return new Bill(billItems, total);
     }
