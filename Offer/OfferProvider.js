@@ -1,26 +1,37 @@
+import { BuyOneGetOneOffer, BuyXMoreOffer, PercentageOffer } from "../models/Offer.js";
 export class OfferProvider {
     offers = [];
     createOffer(offer) {
         this.offers.push(offer);
-        console.log("Offer Added.");
-        return offer.code;
+        return offer.id;
     }
     getOffer(productId, quantity, price) {
-        const productOffers = this?.offers.filter((o) => o.productId === productId);
-        if (productOffers.length === 0)
+        const applicableOffers = this.offers.filter((offer) => offer.productId === productId && quantity >= offer.minimumQuantity);
+        if (applicableOffers.length === 0)
             return null;
         let bestOffer = null;
-        let maxDiscountValue = 0;
-        for (const offer of productOffers) {
-            if (quantity >= offer.minimumQuantity) {
-                const discountValue = quantity * price * (offer.discountPercentage / 100);
-                if (discountValue > maxDiscountValue) {
-                    maxDiscountValue = discountValue;
-                    bestOffer = offer;
-                }
+        let lowestPrice = price;
+        for (const offer of applicableOffers) {
+            const strategy = this.resolveStrategy(offer.code);
+            const discountedPrice = strategy.applyOffer(offer, quantity, price);
+            if (discountedPrice < lowestPrice) {
+                lowestPrice = discountedPrice;
+                bestOffer = offer;
             }
         }
         return bestOffer;
+    }
+    resolveStrategy(code) {
+        switch (code) {
+            case "PERCENTAGE":
+                return new PercentageOffer();
+            case "BOGO":
+                return new BuyOneGetOneOffer();
+            case "BuyXMore":
+                return new BuyXMoreOffer();
+            default:
+                throw new Error(`Unknown offer code: ${code}`);
+        }
     }
 }
 //# sourceMappingURL=OfferProvider.js.map
