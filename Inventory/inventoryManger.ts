@@ -21,7 +21,7 @@ export class InventoryManager implements IInventoryManager {
 
   updateQuantity(product: Product, qty: number): void {
     if (product) {
-      product.quantity = qty;
+      product.quantity -= qty;
     }
   }
   printInventoryUpdate() {

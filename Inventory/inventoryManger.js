@@ -8,7 +8,7 @@ export class InventoryManager {
     }
     updateQuantity(product, qty) {
         if (product) {
-            product.quantity = qty;
+            product.quantity -= qty;
         }
     }
     printInventoryUpdate() {
