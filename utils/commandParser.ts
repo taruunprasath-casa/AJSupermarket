@@ -3,7 +3,7 @@ import { Product } from "../models/Product.js";
 import { SaleItem } from "../models/SaleItem.js";
 import type { IOfferProvider } from "../Offer/OfferProvider.js";
 import { SalesService } from "../SaleItem/salesService.js";
-import { ConsoleBillGenerator } from "./consoleBillGenerator.js";
+import { ConsoleBillGenerator } from "./BillGenerator.js";
 import { Symbols } from "./Symbols.js";
 
 export interface ICommand<T> {
@@ -66,7 +66,7 @@ class SalesCommand implements ICommand<SalesService> {
     });
 
     const bill = sales.processSale(items);
-    ConsoleBillGenerator.printBill(bill);
+    new ConsoleBillGenerator().printBill(bill);
   }
 }
 
