@@ -1,7 +1,7 @@
 import { Product } from "../models/Product.js";
 import { SaleItem } from "../models/SaleItem.js";
 import { SalesService } from "../SaleItem/salesService.js";
-import { ConsoleBillGenerator } from "./consoleBillGenerator.js";
+import { ConsoleBillGenerator } from "./BillGenerator.js";
 import { Symbols } from "./Symbols.js";
 class Command {
     inventory;
@@ -48,7 +48,7 @@ class SalesCommand {
             return new SaleItem(String(id), Number(qty));
         });
         const bill = sales.processSale(items);
-        ConsoleBillGenerator.printBill(bill);
+        new ConsoleBillGenerator().printBill(bill);
     }
 }
 class OfferCommand {
@@ -64,6 +64,7 @@ class OfferCommand {
             minimumQuantity: Number(minimumQuantity),
             discountPercentage: Number(discountPercentage),
         });
+        console.log("Offer added");
     }
 }
 class StockCommand {

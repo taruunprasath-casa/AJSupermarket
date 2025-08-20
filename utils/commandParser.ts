@@ -85,6 +85,7 @@ class OfferCommand implements ICommand<IOfferProvider> {
       minimumQuantity: Number(minimumQuantity),
       discountPercentage: Number(discountPercentage),
     });
+    console.log("Offer added");
   }
 }
 
